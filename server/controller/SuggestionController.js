@@ -17,6 +17,7 @@ module.exports = {
     try {
       const { userId } = req.params;
       const users = await User.findOne({
+        attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt'],
         where: { id: userId },
         include: [{
           model: Suggestion,
