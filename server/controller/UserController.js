@@ -1,10 +1,10 @@
-const User = require("../database/models").User;
-const Op = require('Sequelize').Op;
 const jwt = require('jsonwebtoken');
 const config = require('../database/config/config'),
-  Promise = require('bluebird')
-bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')),
+  Promise = require('bluebird'),
+  bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')),
   SALT_FACTOR = 10;
+
+const User = require("../database/models").User;
 
 function jwtSignUser(user) {
   const ONE_WEEK = 60 * 60 * 24 * 7;
