@@ -17,9 +17,14 @@ module.exports = (app) => {
         UserController.create);
     app.get('/api/users',
         UserController.getUsers);
+    app.get('/api/users/:userId',
+        UserController.getUserById);
     app.post('/api/login',
         UserController.login);
+
     //suggestion
     app.post('/api/suggestion',
         SuggestionController.create);
+    app.get('/api/getUserWithSuggestions/:userId',
+        SuggestionController.getUserWithSuggestions);
 }

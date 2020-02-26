@@ -1,10 +1,10 @@
-const User = require("../database/models").User;
-const Op = require('Sequelize').Op;
 const jwt = require('jsonwebtoken');
 const config = require('../database/config/config'),
-  Promise = require('bluebird')
-bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')),
+  Promise = require('bluebird'),
+  bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')),
   SALT_FACTOR = 10;
+
+const User = require("../database/models").User;
 
 function jwtSignUser(user) {
   const ONE_WEEK = 60 * 60 * 24 * 7;
@@ -28,6 +28,7 @@ module.exports = {
     try {
       const { userId } = req.params;
       const user = await User.findOne({
+        attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt'],
         where: { id: userId }
       });
       if (user) {
@@ -40,7 +41,9 @@ module.exports = {
   },
   async getUsers(req, res) {
     try {
-      const users = await User.findAll({});
+      const users = await User.findAll({
+        attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+      });
       return res.status(200).json({ users });
     } catch (error) {
       return res.status(500).send(error.message);
