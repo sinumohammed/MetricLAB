@@ -1,10 +1,10 @@
 const passport = require('passport')
-const User = require('./models/user')
+const User = require("./database/models").User;
 
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 
-const config = require('./config')
+const config = require('./database/config/config')
 
 passport.use(
     new JwtStrategy({
@@ -12,8 +12,9 @@ passport.use(
         secretOrKey: config.authentication.jwtSecret
     }, async function (jwtPayload, done) {
         try {
-            let query = { _id: jwtPayload._id };
-            const user = await User.findOne(query);
+            const user = await User.findOne({
+                where: { id: jwtPayload._id }
+            });
             if (!user) {
                 return done(new Error(), false)
             }

@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const Product = require('../mongoDB/models/product');
 
 module.exports = {
-  async product(req, res) {
+  async create(req, res) {
     try {
       await Product.insertMany([req.body]);
       res.send({

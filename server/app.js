@@ -6,18 +6,18 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-const config = require('./config');
+const config = require('./database/config/config');
 const route = require('./router/route');
 const serveStatic = require('serve-static')
 
 const app = express();
 
 // connet to mongodb
-mongoose.connect(config.db.url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect(config.mongodb.url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 // on connection
 mongoose.connection.on('connected', () => {
-    console.log(`connected to db:${config.db.url}`);
+    console.log(`connected to db:${config.mongodb.url}`);
 })
 // on error
 mongoose.connection.on('error', (err) => {
