@@ -32,4 +32,18 @@ module.exports = {
       //TODO:
     }
   },
+  async deleteProduct(req, res) {
+    try {
+      let query = { _id: req.params.prodId };
+      const product = await Product.deleteOne(query);
+      res.send(product);
+    } catch (err) {
+      res.status(500).send({
+        error: "Error has occured trying to fetch the products"
+      });
+    }
+    finally {
+      //TODO:
+    }
+  },
 }

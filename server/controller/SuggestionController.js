@@ -29,5 +29,15 @@ module.exports = {
       return res.status(500).send(error.message);
     }
   },
-
+  async getSuggestions(req, res) {
+    try {
+      const { userId } = req.params;
+      const suggestions = await Suggestion.findAll({
+        where: { userId: userId }
+      });
+      return res.status(200).json({ suggestions });
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  },
 }
